@@ -17,8 +17,3 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     reviews = product.reviews.all()
     return render(request, 'reviews/product_detail.html', {'product': product, 'reviews': reviews})
-
-@login_required
-def profile(request):
-    return render(request, 'reviews/profile.html', {'profile': request.user.profile})
-

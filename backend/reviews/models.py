@@ -14,17 +14,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-# Profile Model
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField()
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
-
-    def __str__(self):
-        return self.user.username
 
 # Review Model
 class Review(models.Model):
