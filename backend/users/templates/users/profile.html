@@ -1,24 +1,58 @@
 {% extends "reviews/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content-section"> 
+<div class="container py-5">
+    <!-- Profile Heading -->
+    <div class="text-center mb-5">
+        <h2 class="font-weight-bold text-primary">{{ title }}</h2>
+        <p class="text-muted">View and update your account details below.</p>
+    </div>
 
-    <div class="media"> 
-  
-     <p><img class="rounded-circle account-img" src="{{user.profile.image.url}}"></p> 
-  
-        <div class="media-body"> 
-    
-            <h2 class="account-heading">{{user.profile}}</h2> 
-    
-            <p class="text-secondary">{{user.username}}</p> 
-    
-            <p class="text-secondary">{{user.email}}</p> 
-    
-        </div> 
-  
-    </div> 
-  
-</div> 
-<a href="{% url 'users:logout' %}" class="btn btn-danger">Logout</a>
+    <!-- Profile Image Section -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-center">
+            {% if user.profile.image %}
+                <img class="rounded-circle account-img" 
+                     src="{{ user.profile.image.url }}" 
+                     alt="{{ user.username }}'s profile picture" 
+                     style="width: 150px; height: 150px; object-fit: cover;">
+            {% else %}
+                <img class="rounded-circle account-img" 
+                     src="/media/profile_pics/default.png" 
+                     alt="{{ user.username }}'s profile picture" 
+                     style="width: 150px; height: 150px; object-fit: cover;">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Profile Details Section -->
+    <div class="text-center mb-5">
+        <h3 class="text-primary">{{ profile.user.username }}User's Profile</h3>
+        <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Date of Birth:</strong> {{ user.profile.date_of_birth|default:"Not provided" }}</p>
+        <p><strong>Address:</strong> {{ user.profile.address|default:"Not provided" }}</p>
+        <p><strong>City:</strong> {{ user.profile.city|default:"Not provided" }}</p>
+        <p><strong>Country:</strong> {{ user.profile.country|default:"Not provided" }}</p>
+    </div>
+
+    <!-- Profile Update Form Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center text-primary mb-4">Update Profile</h4>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                        
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

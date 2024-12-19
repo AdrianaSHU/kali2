@@ -28,11 +28,11 @@
                         </div>
                         <div class="navbar-nav">
                             {% if user.is_authenticated %}
-                                <a class="nav-item nav-link" href="{% url 'users:profile' %}">Profile</a>
-                                <a class="nav-item nav-link" href="{% url 'users:logout' %}">Logout</a>
+                                <a class="nav-item nav-link" href="{% url 'reviews:profile' %}">Profile</a>
+                                <a class="nav-item nav-link" href="{% url 'reviews:logout' %}">Logout</a>
                             {% else %}
-                                <a class="nav-item nav-link" href="{% url 'users:login' %}">Login</a>
-                                <a class="nav-item nav-link" href="{% url 'users:register' %}">Register</a>
+                                <a class="nav-item nav-link" href="{% url 'reviews:login' %}">Login</a>
+                                <a class="nav-item nav-link" href="{% url 'reviews:register' %}">Register</a>
                             {% endif %}
                         </div>
                     </div>
@@ -41,27 +41,13 @@
         </header>
 
         <div class="row mt-5 pt-5">
-            <div class="col-md-8">
+            <div class="col">
                 {% if messages %}
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
                 {% block content %}{% endblock %}
-            </div>
-            <div class="col-md-4">
-                <div class="content-section">
-                    <h3 class="text-primary">General Information</h3>
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet, iudico docendi inciderint per eu, ea vis scripta senserit periculis.
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Latest Issues Reported</li>
-                            <li class="list-group-item list-group-item-light">IT Policies</li>
-                            <li class="list-group-item list-group-item-light">IT Regulations</li>
-                            <li class="list-group-item list-group-item-light">Upcoming Events</li>
-                        </ul>
-                    </p>
-                </div>
             </div>
         </div>
 

@@ -1,0 +1,16 @@
+{% extends "reviews/base.html" %}
+
+{% for product in products %}
+    <li class="list-group-item">
+        <a href="{% url 'reviews:product_detail' product.id %}">
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="max-width: 100px;">
+            {% else %}
+                <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" style="max-width: 100px;">
+            {% endif %}
+            {{ product.name }}
+        </a>
+    </li>
+{% empty %}
+    <li class="list-group-item">No products available.</li>
+{% endfor %}

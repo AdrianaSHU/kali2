@@ -1,6 +1,58 @@
 {% extends 'reviews/base.html' %}
 
 {% block content %}
-<h1>About Us</h1>
-<p>We are a company dedicated to bringing the best product reviews.</p>
+    <div class="container py-5">
+        <!-- Heading -->
+        <h1 class="text-center mb-5">About Us</h1>
+        
+        <!-- About Section -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h3 class="font-weight-bold mb-3">Who We Are</h3>
+                <p class="lead">We are a team of dedicated product reviewers committed to providing you with honest and thorough reviews. Our mission is to guide you in choosing the right products with clarity and confidence.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.pexels.com/photos/3182762/pexels-photo-3182762.jpeg" alt="About Us" class="img-fluid rounded shadow-lg" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);">
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="mb-5">
+            <h3 class="text-center mb-4">Our Mission</h3>
+            <p class="text-center lead">Our goal is to simplify your shopping decisions by providing insightful, unbiased, and reliable reviews of the products we test. We want you to feel confident in your choices!</p>
+            <div class="text-center">
+                <img src="https://images.pexels.com/photos/3182766/pexels-photo-3182766.jpeg" alt="Mission" class="img-fluid rounded" style="max-width: 100%; height: auto; border-radius: 15px;">
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="my-5">
+            <h3 class="text-center mb-4">Our Journey</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h5>2018</h5>
+                    <p>We started as a small blog, reviewing tech gadgets.</p>
+                    <img src="https://images.pexels.com/photos/3182768/pexels-photo-3182768.jpeg" alt="2018 Start" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="timeline-item">
+                    <h5>2020</h5>
+                    <p>We expanded to review home appliances, lifestyle products, and more.</p>
+                    <img src="https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg" alt="Expansion" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="timeline-item">
+                    <h5>2023</h5>
+                    <p>We expanded to YouTube, offering video reviews and tutorials.</p>
+                    <img src="https://images.pexels.com/photos/3182764/pexels-photo-3182764.jpeg" alt="2023 Growth" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="text-center my-5">
+            <h4 class="mb-3">Join Our Community!</h4>
+            <p class="lead">Stay updated with our latest reviews and news by subscribing to our newsletter!</p>
+            <a href="#" class="btn btn-primary btn-lg">Subscribe Now</a>
+            <img src="https://images.pexels.com/photos/3182761/pexels-photo-3182761.jpeg" alt="Community" class="img-fluid rounded mt-4" style="max-width: 100%; height: auto; border-radius: 15px;">
+        </div>
+    </div>
 {% endblock %}

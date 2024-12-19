@@ -1,27 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-# Product Model
-class Product(models.Model):
-    name = models.CharField(max_length=255)
-    brand = models.CharField(max_length=255)
-    average_cost = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.CharField(max_length=100)
-    release_date = models.DateField()
-    description = models.TextField()
-    photo = models.ImageField(upload_to='product_photos/', null=True, blank=True)
-
-    def __str__(self):
-        return self.name
+from products.models import Product
 
 
 # Review Model
 class Review(models.Model):
+    product = models.ForeignKey(Product, related_name="reviews", on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews")
-    rating = models.IntegerField()
+    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])  # Ratings from 1 to 5
     content = models.TextField()
     review_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Review by {self.author.username} on {self.product.name}"
+        return f"Review for {self.product.name} by {self.author.username}"
+    

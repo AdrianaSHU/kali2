@@ -1,0 +1,12 @@
+{% extends 'reviews/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Edit your review for {{ product.name }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Update Review</button>
+    </form>
+{% endblock %}

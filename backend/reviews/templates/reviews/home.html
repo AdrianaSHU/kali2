@@ -1,6 +1,95 @@
 {% extends 'reviews/base.html' %}
 
 {% block content %}
-<h1>Welcome to the Product Review Site!</h1>
-<p>Browse and post reviews for your favorite electronic products.</p>
+    <!-- Hero Section -->
+    <div class="hero-section text-center py-5 bg-primary text-white">
+        <div class="container">
+            <h1 class="display-4 mb-3">Welcome to the Product Review Hub!</h1>
+            <p class="lead">Browse, discover, and share your thoughts on the latest products.</p>
+            <a href="#products" class="btn btn-light btn-lg mt-3">Explore Products</a>
+        </div>
+    </div>
+
+    <!-- Featured Section -->
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Discover New Favorites</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg" 
+                     class="img-fluid rounded shadow" alt="Featured Product 1">
+            </div>
+            <div class="col-md-4">
+                <img src="https://images.pexels.com/photos/2566573/pexels-photo-2566573.jpeg" 
+                     class="img-fluid rounded shadow" alt="Featured Product 2">
+            </div>
+            <div class="col-md-4">
+                <img src="https://images.pexels.com/photos/3184456/pexels-photo-3184456.jpeg" 
+                     class="img-fluid rounded shadow" alt="Featured Product 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="container py-5" id="products">
+        <h2 class="text-center mb-4">Available Products</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <!-- Product Image -->
+                        {% if product.photo %}
+                            <img src="{{ product.photo.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg" 
+                                 class="card-img-top img-fluid" alt="No Image Available">
+                        {% endif %}
+                        
+                        <!-- Product Details -->
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-truncate">{{ product.description }}</p>
+                            <p><strong>Price:</strong> ${{ product.price }}</p>
+                            <a href="{% url 'reviews:product_detail' product.id %}" class="btn btn-primary mt-auto">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center">No products available.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="bg-light py-5 text-center">
+        <div class="container">
+            <h2>Want to stay updated?</h2>
+            <p class="lead">Subscribe to our newsletter and never miss out on the latest reviews!</p>
+            <a href="#" class="btn btn-primary btn-lg">Subscribe Now</a>
+        </div>
+    </div>
+
+    <!-- Partners/Brands Section -->
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Our Trusted Partners</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg" 
+                     class="img-fluid rounded shadow" alt="Brand 1">
+            </div>
+            <div class="col-md-3">
+                <img src="https://images.pexels.com/photos/209151/pexels-photo-209151.jpeg" 
+                     class="img-fluid rounded shadow" alt="Brand 2">
+            </div>
+            <div class="col-md-3">
+                <img src="https://images.pexels.com/photos/3182759/pexels-photo-3182759.jpeg" 
+                     class="img-fluid rounded shadow" alt="Brand 3">
+            </div>
+            <div class="col-md-3">
+                <img src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg" 
+                     class="img-fluid rounded shadow" alt="Brand 4">
+            </div>
+        </div>
+    </div>
 {% endblock %}
