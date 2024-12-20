@@ -61,26 +61,18 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Collect static files
-        run: |
-          python manage.py collectstatic --noinput
-
-      - name: Apply migrations
-        run: |
-          python manage.py migrate
-
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7026FBE25E2F467D93F288AF784A4ED3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E2774740FF1D4520BB452832C93ECCB7 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_83C3912D77E04BE499E2157280678294 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A4C986A53FB34A33BC5EFDABCA27D0A1 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FAB9B463EA154259B78997739B014767 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7F47B76F39914AFC8D638059A8D2FEB2 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'c3054602app'
-          slot-name: ''
+          slot-name: 'Production'
           
