@@ -1,2 +1,2 @@
 # DigitalNest1
-https://mailtrap.io/home
+Email receving from contact form https://mailtrap.io/home
