@@ -11,7 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'p7%@c9=#&b5lg!n5t-^_#o3!)9@e2hndiyv@fw6bpb7^q%-v2s')    
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1")
+CSRF_TRUSTED_ORIGINS = [f'https://{os.environ.get("WEBSITE_HOSTNAME", "")}']
+
 
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
@@ -20,7 +22,7 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = "DENY"
 
-ALLOWED_HOSTS = ['c3054602app-a6cqdfa2aha0akf6.northeurope-01.azurewebsites.net']
+ALLOWED_HOSTS = [os.environ.get('WEBSITE_HOSTNAME', '')]
 
 # Application definition
 
