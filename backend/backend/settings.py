@@ -20,7 +20,7 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = "DENY"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['c3054602app-a6cqdfa2aha0akf6.northeurope-01.azurewebsites.net']
 
 # Application definition
 
