@@ -5,9 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
     <title>Product Reviews - {{ title }}</title>
+    <div class="col-md-4">
+    </div>
 </head>
 
 <body>
@@ -40,6 +44,8 @@
             </nav>
         </header>
 
+        {% block sidebar %}{% endblock %}
+
         <div class="row mt-5 pt-5">
             <div class="col">
                 {% if messages %}
@@ -62,6 +68,25 @@
             </div>
         </footer>
     </div>
+    
+    {% if request.user.is_authenticated %}
+    <script>
+        var timeout;
+        var timeoutLimit = 600000;  // 10 minutes in milliseconds
+    
+        function resetTimeout() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                alert('You have been logged out due to inactivity.');
+                window.location.href = '/logout/';
+            }, timeoutLimit);
+        }
+    
+        document.onmousemove = resetTimeout; // Trigger on mouse movement
+        document.onkeypress = resetTimeout; // Trigger on keypress
+        resetTimeout(); // Initialize the timeout
+    </script>
+    {% endif %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyD8W7Jf6bFN6xK0xT2n2v0p/4kQ3bHbu2fO8r1M" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9gV8sBf4coewP0lK3ckAcMHLxtlR18kE3m1F0IjfFg6W9+4XUWRhHVzD52Hdx9xQ" crossorigin="anonymous"></script>

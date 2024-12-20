@@ -1,0 +1,54 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "name": "Samsung Galaxy S23 Ultra",
+        "brand": "Samsung",
+        "average_cost": "1199.99",
+        "category": "Smartphones",
+        "release_date": "2023-02-17",
+        "description": "The Samsung Galaxy S23 Ultra offers a 200MP camera, a massive 6.8-inch Dynamic AMOLED display, and a powerful Snapdragon 8 Gen 2 processor. Its robust design and excellent camera capabilities make it a top-tier flagship.",
+        "photo": "product_photos/Samsung_Galaxy_S23_Ultra.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "name": "Apple iPhone 15 Pro Max",
+        "brand": "Apple",
+        "average_cost": "1099.99",
+        "category": "Smartphones",
+        "release_date": "2023-09-22",
+        "description": "The iPhone 15 Pro Max features a cutting-edge A17 Pro chip, a 48MP camera system, and a 6.7-inch OLED display. The phone supports 5G connectivity and boasts impressive battery life with a sleek design.",
+        "photo": "product_photos/Apple-iPhone-15-Pro.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "name": "Sony PlayStation 5",
+        "brand": "Sony",
+        "average_cost": "499.99",
+        "category": "Gaming Consoles",
+        "release_date": "2020-11-12",
+        "description": "The PlayStation 5 is Sony’s next-gen console, boasting lightning-fast load times, an innovative controller with haptic feedback, and an ultra-realistic 4K gaming experience. Its design is futuristic and includes backward compatibility for PS4 games.",
+        "photo": "product_photos/Sony_PlayStation_5.jpg"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "name": "Dell XPS 13 (2023)",
+        "brand": "Dell",
+        "average_cost": "1249.99",
+        "category": "Laptops",
+        "release_date": "2023-01-20",
+        "description": "The Dell XPS 13 (2023) is a high-performance ultrabook featuring a 13.4-inch InfinityEdge display, 12th-generation Intel Core processors, and a sleek design with premium materials. It's perfect for professionals and content creators.",
+        "photo": "product_photos/Dell_XPS_13_2023.jpg"
+    }
+}
+]
