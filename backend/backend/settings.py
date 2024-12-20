@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'p7%@c9=#&b5lg!n5t-^_#o3!)9@e2hndiyv@fw6bpb7^q%-v2s')    
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "True"  # DEBUG should probably be a boolean: DEBUG = True
+DEBUG = True
 
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
