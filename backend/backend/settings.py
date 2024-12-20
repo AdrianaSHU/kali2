@@ -23,6 +23,7 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
 
 ALLOWED_HOSTS = [os.environ.get('WEBSITE_HOSTNAME', '')]
+ALLOWED_HOSTS = ['c3054602app-a6cqdfa2aha0akf6.northeurope-01.azurewebsites.net']
 
 # Application definition
 
