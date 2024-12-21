@@ -1,2 +1,3 @@
-# DigitalNest1
-https://mailtrap.io/home
+# FutureGadgets
+Django App
+Email receving from contact form https://mailtrap.io/home 
