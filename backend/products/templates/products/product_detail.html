@@ -2,94 +2,117 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container py-5">
-    <h2 class="text-center mb-4">{{ product.name }}</h2>
+    <div class="container py-5">
+        <h2 class="text-center mb-4">{{ product.name }}</h2>
 
-    <!-- Product Image with Fixed Size -->
-    <div class="text-center mb-4">
-        {% if product.photo %}
-            <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="300" height="300">
-        {% else %}
-            <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" width="300" height="300">
+        <!-- Product Image with Fixed Size -->
+        <div class="text-center mb-4">
+            {% if product.photo %}
+                <!-- Image with a clickable link to open modal -->
+                <a href="#" data-bs-toggle="modal" data-bs-target="#productImageModal">
+                    <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="400" height="400">
+                </a>
+            {% else %}
+                <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" width="300" height="300">
+            {% endif %}
+        </div>
+
+        <!-- Product Description -->
+        <p class="lead">{{ product.description }}</p>
+        <p><strong>Brand:</strong> {{ product.brand }}</p>
+        <p><strong>Price:</strong> ${{ product.average_cost }}</p>
+        <p><strong>Release Date:</strong> {{ product.release_date }}</p>
+        <hr>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
         {% endif %}
-    </div>
 
-    <!-- Product Description -->
-    <p class="lead">{{ product.description }}</p>
-    <p><strong>Brand:</strong> {{ product.brand }}</p>
-    <p><strong>Price:</strong> ${{ product.average_cost }}</p>
-    <p><strong>Release Date:</strong> {{ product.release_date }}</p>
-    <hr>
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    <!-- Reviews Section -->
-    <h3 class="my-4">Reviews</h3>
-    {% for review in reviews %}
-        <div class="review mb-4">
-            <div class="row align-items-center">
-                <!-- Author's photo and info -->
-                <div class="col-md-2 text-center">
-                    {% if review.author.profile.image %}
-                        <img src="{{ review.author.profile.image.url }}" alt="{{ review.author.username }}'s profile picture" class="author-img rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                    {% else %}
-                        <img src="/media/profile_pics/default.png" alt="{{ review.author.username }}'s profile picture" class="author-img rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                    {% endif %}
-                    <p>{{ review.author.username }}</p>
-                </div>
-
-                <!-- Review Content -->
-                <div class="col-md-10">
-                    <div class="review-content">
-                        <p>{{ review.content }}</p>
-                        <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
-                        <p><small>Posted on {{ review.date_posted }}</small></p>
-
-                        {% if review.author == request.user %}
-                            <!-- Edit Review Button -->
-                            <a href="{% url 'reviews:update_review' product_id=product.id review_id=review.id %}" class="btn btn-warning btn-sm mr-2">Edit</a>
-
-                            <!-- Delete Review Button -->
-                            <form method="POST" action="{% url 'reviews:delete_review' product_id=product.id review_id=review.id %}" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
+        <!-- Reviews Section -->
+        <h3 class="my-4">Reviews</h3>
+        {% for review in reviews %}
+            <div class="review mb-4">
+                <div class="row align-items-center">
+                    <!-- Author's photo and info -->
+                    <div class="col-md-2 text-center">
+                        {% if review.author.profile.image %}
+                            <img src="{{ review.author.profile.image.url }}" alt="{{ review.author.username }}'s profile picture" class="author-img rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                        {% else %}
+                            <img src="/media/profile_pics/default.png" alt="{{ review.author.username }}'s profile picture" class="author-img rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
                         {% endif %}
+                        <p>{{ review.author.username }}</p>
+                    </div>
+
+                    <!-- Review Content -->
+                    <div class="col-md-10">
+                        <div class="review-content">
+                            <p>{{ review.content }}</p>
+                            <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+                            <p><small>Posted on {{ review.date_posted }}</small></p>
+
+                            {% if review.author == request.user %}
+                                <!-- Edit Review Button -->
+                                <a href="{% url 'reviews:update_review' product_id=product.id review_id=review.id %}" class="btn btn-warning btn-sm mr-2">Edit</a>
+
+                                <!-- Delete Review Button -->
+                                <form method="POST" action="{% url 'reviews:delete_review' product_id=product.id review_id=review.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
 
-    <hr>
+        <hr>
 
-    <!-- Post a Review Section -->
-    <h3>Post a Review</h3>
+        <!-- Post a Review Section -->
+        <h3>Post a Review</h3>
 
-    {% if form.errors %}
-        <div class="alert alert-danger">
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
 
-    {% if user.is_authenticated %}
-        <form method="post" class="mt-4">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-success btn-block">Submit Review</button>
-        </form>
-    {% else %}
-        <p class="mt-3">You must be logged in to post a review. <a href="{% url 'reviews:login' %}">Login here</a>.</p>
-    {% endif %}
-</div>
+        {% if user.is_authenticated %}
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success btn-block">Submit Review</button>
+            </form>
+        {% else %}
+            <p class="mt-3">You must be logged in to post a review. <a href="{% url 'reviews:login' %}">Login here</a>.</p>
+        {% endif %}
+    </div>
+
+    <!-- Modal for Larger Image -->
+    <div class="modal fade" id="productImageModal" tabindex="-1" aria-labelledby="productImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productImageModalLabel">{{ product.name }} - Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    {% if product.photo %}
+                        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="img-fluid">
+                    {% else %}
+                        <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

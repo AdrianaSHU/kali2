@@ -1,5 +1,19 @@
 {% extends 'reviews/base.html' %}
 
+{% block sidebar %}
+
+<div class="weather-container d-flex justify-content-between">
+    {% for weather in weather_data %}
+        <div class="weather-card text-center p-3 border rounded m-2" style="width: 18%;">
+            <h4>{{ weather.city }}</h4>
+            <p>{{ weather.temperature }}°C</p>
+            <p>{{ weather.description }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock sidebar %} 
+
 {% block content %}
     <!-- Hero Section -->
     <div class="hero-section text-center py-5 bg-primary text-white">
@@ -40,8 +54,7 @@
                         {% if product.photo %}
                             <img src="{{ product.photo.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
                         {% else %}
-                            <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg" 
-                                 class="card-img-top img-fluid" alt="No Image Available">
+                            <span>No image available</span>
                         {% endif %}
                         
                         <!-- Product Details -->
@@ -59,7 +72,7 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
+    </div>    
 
     <!-- Call to Action Section -->
     <div class="bg-light py-5 text-center">
@@ -92,4 +105,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

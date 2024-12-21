@@ -64,7 +64,7 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if '@'  not in email:
+        if '@' not in email:
             raise forms.ValidationError("Please provide a valid email address")
         return email
 
@@ -114,3 +114,50 @@ class ProfileUpdateForm(forms.ModelForm):
             Field('country', css_class='form-control'),
         )
         self.helper.add_input(Submit('update_profile', 'Update Profile', css_class='btn btn-success'))
+
+
+class PasswordChangeFormCustom(forms.Form):
+    current_password = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Current Password",
+        min_length=8,
+        help_text="Enter your current password."
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput,
+        label="New Password",
+        min_length=8,
+        help_text="Password must be at least 8 characters long."
+    )
+    confirm_new_password = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Confirm New Password",
+        min_length=8,
+        help_text="Re-enter the new password for confirmation."
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.layout = Layout(
+            Field('current_password', css_class='form-control'),
+            Field('new_password', css_class='form-control'),
+            Field('confirm_new_password', css_class='form-control'),
+            Div(
+                Submit('change_password', 'Change Password', css_class='btn btn-primary')
+            ),
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get("new_password")
+        confirm_new_password = cleaned_data.get("confirm_new_password")
+
+        if new_password and confirm_new_password:
+            if new_password != confirm_new_password:
+                raise forms.ValidationError(
+                    "The new passwords do not match."
+                )
+
+        return cleaned_data

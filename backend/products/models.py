@@ -7,7 +7,7 @@ class Product(models.Model):
     category = models.CharField(max_length=100)
     release_date = models.DateField()
     description = models.TextField()
-    photo = models.ImageField(upload_to='product_photos/', null=True, blank=True, default='/product_photos/default-image.jpg')
+    photo = models.ImageField(upload_to='product_photos/', null=True, blank=True)
 
     def __str__(self):
         return self.name

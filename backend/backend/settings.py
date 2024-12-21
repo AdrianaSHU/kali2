@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY="django-insecure-j()*tiy80$l*ew8p!c&zob4auaz*0ll$+$amew&wwm779^m)$3"
+SECRET_KEY=os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.middleware.AutoLogoutMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -81,12 +84,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -141,13 +143,26 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Email configuration (for local development, you can use the console backend to view emails in the terminal)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Email configuration for Mailtrap
+# Email backend for Mailtrap
+#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# Mailtrap settings
 EMAIL_HOST = "smtp.mailtrap.io"
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'b25afd9a6184d5'  # The username provided by Mailtrap
-EMAIL_HOST_PASSWORD = 'e5a625910831fd'  # The password provided by Mailtrap
-DEFAULT_FROM_EMAIL = 'sandbox.smtp.mailtrap.io' # Replace with your default email address
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "default-user")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "default-password")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@example.com")
+
+# Path to save email records
+EMAIL_LOG_PATH = BASE_DIR / "emails"
+
+# Set session timeout to 10 minutes (600 seconds)
+SESSION_COOKIE_AGE = 600  # Time in seconds
+AUTO_LOGOUT_TIME = 600
+
+# Wheather API
+WEATHER_API_KEY=os.getenv('WEATHER_API_KEY')
