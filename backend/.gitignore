@@ -1,0 +1,10 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+
+# Environments
+.env
+myenv/
+.vscode/
