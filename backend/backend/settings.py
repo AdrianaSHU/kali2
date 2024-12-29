@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / 'db.sqlite3',
+        "NAME": "db.sqlite3",
     }
 }
 
@@ -150,8 +150,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Mailtrap settings
-EMAIL_HOST = "smtp.mailtrap.io"
-EMAIL_PORT = 2525
+EMAIL_HOST = "sandbox.smtp.mailtrap.io"
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "default-user")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "default-password")

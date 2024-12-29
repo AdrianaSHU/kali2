@@ -7,7 +7,7 @@ from crispy_forms.layout import Layout, Field, Submit, Div
 
 
 class RegistrationForm(UserCreationForm):
-    # User fields
+     # User fields
     email = forms.EmailField(
         label='Email address', 
         help_text='Your email address'
@@ -16,7 +16,7 @@ class RegistrationForm(UserCreationForm):
     # Profile fields
     date_of_birth = forms.DateField(
         required=False,
-        widget=forms.SelectDateWidget(years=range(1900, 2025)),
+        widget=forms.SelectDateWidget(years=range(1940, 2020)),
         label="Date of Birth"
     )
     address = forms.CharField(

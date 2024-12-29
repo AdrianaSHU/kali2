@@ -10,10 +10,10 @@
             {% if product.photo %}
                 <!-- Image with a clickable link to open modal -->
                 <a href="#" data-bs-toggle="modal" data-bs-target="#productImageModal">
-                    <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="400" height="400">
+                    <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="600" height="400">
                 </a>
             {% else %}
-                <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" width="300" height="300">
+                <img src="{{ MEDIA_URL }}default-image.jpg" alt="No image available" width="600" height="400">
             {% endif %}
         </div>
 
@@ -116,3 +116,18 @@
     </div>
 
 {% endblock %}
+
+{# 
+    michael-soledad-FJh36ln5pXc-unsplash = Photo by <a href="https://unsplash.com/@michsole?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Michael Soledad</a> on <a href="https://unsplash.com/photos/black-sony-headphones-beside-imac-on-top-of-table-FJh36ln5pXc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    
+    wesson-wang-y0_vFxOHayg-unsplash = Photo by <a href="https://unsplash.com/@wesson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wesson Wang</a> on <a href="https://unsplash.com/photos/macbook-y0_vFxOHayg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    
+    adison-ferreira-mS95of4-oV0-unsplash = Photo by <a href="https://unsplash.com/@adimfotografia1?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Adison Ferreira</a> on <a href="https://unsplash.com/photos/red-jbl-portable-speaker-mS95of4-oV0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    
+    evgeny-opanasenko-dh2VUtetmZw-unsplash = Photo by <a href="https://unsplash.com/@n3gve?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Evgeny Opanasenko</a> on <a href="https://unsplash.com/photos/a-group-of-three-different-cell-phones-sitting-next-to-each-other-dh2VUtetmZw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    
+    sajad-nori-yG8gIRw9TJY-unsplash = Photo by <a href="https://unsplash.com/@sajadnori?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Sajad Nori</a> on <a href="https://unsplash.com/photos/a-woman-holding-a-camera-in-her-hands-yG8gIRw9TJY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    
+    jonas-leupe-Fhwg7BrGUpk-unsplash = Photo by <a href="https://unsplash.com/@jonasleupe?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jonas Leupe</a> on <a href="https://unsplash.com/photos/black-flat-screen-tv-on-brown-wooden-tv-rack-Fhwg7BrGUpk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    #}
+    

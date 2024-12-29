@@ -1,0 +1,74 @@
+[
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "JBL Charge 5",
+            "brand": "JBL",
+            "average_cost": 179.95,
+            "category": "Audio",
+            "release_date": "2021-04-01",
+            "description": "A portable waterproof Bluetooth speaker with 20 hours of playtime and a built-in power bank.",
+            "photo": "product_photos/adison-ferreira-mS95of4-oV0-unsplash.jpg"
+        }
+    },
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "Sony WH-1000XM4",
+            "brand": "Sony",
+            "average_cost": 348.00,
+            "category": "Audio",
+            "release_date": "2020-08-18",
+            "description": "Industry-leading noise-canceling headphones with 30 hours of battery life and touch control.",
+            "photo": "product_photos/michael-soledad-FJh36ln5pXc-unsplash.jpg"
+        }
+    },
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "Apple MacBook Air M2",
+            "brand": "Apple",
+            "average_cost": 1199.00,
+            "category": "Computers",
+            "release_date": "2022-07-15",
+            "description": "The latest Apple MacBook Air with an M2 chip, 13.6-inch Liquid Retina Display, and up to 18 hours of battery life.",
+            "photo": "product_photos/wesson-wang-y0_vFxOHayg-unsplash.jpg"
+        }
+    },
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "Samsung Galaxy S22 Ultra",
+            "brand": "Samsung",
+            "average_cost": 1199.99,
+            "category": "Smartphones",
+            "release_date": "2022-02-25",
+            "description": "A high-end smartphone with a 108MP camera, S-Pen support, and the latest Snapdragon chipset.",
+            "photo": "product_photos/evgeny-opanasenko-dh2VUtetmZw-unsplash.jpg"
+        }
+    },
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "Canon EOS R5",
+            "brand": "Canon",
+            "average_cost": 3899.00,
+            "category": "Cameras",
+            "release_date": "2020-07-30",
+            "description": "A professional mirrorless camera with 45MP resolution, 8K video recording, and outstanding autofocus.",
+            "photo": "product_photos/sajad-nori-yG8gIRw9TJY-unsplash.jpg"
+        }
+    },
+    {
+        "model": "products.product",
+        "fields": {
+            "name": "Samsung QLED Q70A",
+            "brand": "Samsung",
+            "average_cost": 999.99,
+            "category": "Smart TVs",
+            "release_date": "2021-03-15",
+            "description": "A 55-inch QLED Smart TV with Quantum HDR, 4K resolution, and built-in Alexa support for seamless voice control.",
+            "photo": "product_photos/jonas-leupe-Fhwg7BrGUpk-unsplash.jpg"
+        }
+    }
+]

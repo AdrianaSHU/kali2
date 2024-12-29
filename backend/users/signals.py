@@ -5,14 +5,8 @@ from .models import Profile
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, created, **kwargs):
-    if created:
-        # If the user is created, create a profile for the user
-        Profile.objects.create(user=instance)
-    else:
-        # If the user already exists, ensure their profile is saved
-        if not hasattr(instance, 'profile'):
-            # If the user doesn't have a profile yet, create one
-            Profile.objects.create(user=instance)
-        else:
-            # Otherwise, save the existing profile
+    # Only save the profile if the user is updated (not created).
+    # Skip if the profile has already been created in the registration view.
+    if not created:
+        if hasattr(instance, 'profile'):
             instance.profile.save()

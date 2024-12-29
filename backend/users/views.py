@@ -2,10 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.conf import settings
 from .models import Profile
 from .forms import RegistrationForm, LoginForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeFormCustom
 
@@ -17,31 +13,29 @@ def register(request):
         
         if form.is_valid():
             # Save the user data (User model)
-            user = form.save(commit=False)  # Don't save yet
-            user.set_password(form.cleaned_data['password1'])  # Set the password using the form data
+            user = form.save(commit=False)  # Don't save the user yet
+            user.set_password(form.cleaned_data['password1'])  # Set the password from the form
             user.save()
 
-            # Create a Profile instance for the new user
-            profile = Profile(
-                user=user,
-                date_of_birth=form.cleaned_data.get('date_of_birth'),
-                address=form.cleaned_data.get('address'),
-                city=form.cleaned_data.get('city'),
-                country=form.cleaned_data.get('country'),
-                image=form.cleaned_data.get('image')
-            )
+            # Save the profile data
+            profile = Profile(user=user)
+            profile.date_of_birth = form.cleaned_data['date_of_birth']
+            profile.address = form.cleaned_data['address']
+            profile.city = form.cleaned_data['city']
+            profile.country = form.cleaned_data['country']
+            if form.cleaned_data['image']:
+                profile.image = form.cleaned_data['image']
             profile.save()
 
             # Log the user in
             login(request, user)
             
             messages.success(request, f'Account created for {user.username}!')
-            return redirect('reviews:home')
+            return redirect('reviews:home')  # Redirect to homepage or user dashboard
     else:
         form = RegistrationForm()
 
     return render(request, 'users/register.html', {'form': form})
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -69,47 +63,43 @@ def logout_view(request):
 
 @login_required
 def profile(request):
+    user = request.user
+
     if request.method == 'POST':
-        # Check if it's a password change form
+        u_form = UserUpdateForm(request.POST, instance=user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=user.profile)
         password_form = PasswordChangeFormCustom(request.POST)
-        
-        if password_form.is_valid():
-            current_password = password_form.cleaned_data['current_password']
-            new_password = password_form.cleaned_data['new_password']
-            user = request.user
 
-            # Check if the current password is correct
-            if not user.check_password(current_password):
-                messages.error(request, "Your current password is incorrect.")
+        if 'update_profile' in request.POST:
+            if u_form.is_valid() and p_form.is_valid():
+                u_form.save()
+                p_form.save()
+                messages.success(request, 'Your profile has been updated!')
+        elif 'change_password' in request.POST:
+            if password_form.is_valid():
+                current_password = password_form.cleaned_data['current_password']
+                new_password = password_form.cleaned_data['new_password']
+                if not user.check_password(current_password):
+                    messages.error(request, "Your current password is incorrect.")
+                else:
+                    user.set_password(new_password)
+                    user.save()
+                    update_session_auth_hash(request, user)  # To prevent logging out after password change
+                    messages.success(request, "Your password has been updated!")
+                    return redirect('reviews:profile')  # Redirect to avoid re-posting data on refresh
             else:
-                # Set the new password
-                user.set_password(new_password)
-                user.save()
-
-                # Re-login user after password change
-                update_session_auth_hash(request, user)
-                
-                messages.success(request, "Your password has been updated!")
-                return redirect('reviews:profile')  # Redirect to avoid re-posting data on refresh
-
-        else:
-            # Add specific errors from the form to the messages framework
-            for field, errors in password_form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field.capitalize()}: {error}")
-
-    # Load the user update form
-    u_form = UserUpdateForm(instance=request.user)
-    p_form = ProfileUpdateForm(instance=request.user.profile)
-
-    # Initialize the password change form (for rendering)
-    password_form = PasswordChangeFormCustom()
-    user_profile = request.user.profile
+                for field, errors in password_form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field.capitalize()}: {error}")
+    else:
+        u_form = UserUpdateForm(instance=user)
+        p_form = ProfileUpdateForm(instance=user.profile)
+        password_form = PasswordChangeFormCustom()
 
     return render(request, 'users/profile.html', {
         'u_form': u_form,
         'p_form': p_form,
         'password_form': password_form,
         'title': 'My Profile',
-        'profile': user_profile
+        'profile': user.profile
     })
